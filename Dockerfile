@@ -33,7 +33,7 @@ RUN x11vnc -storepasswd 1358 .vnc/passwd
 COPY --from=builder /opt/ibc /opt/ibc
 COPY --from=builder /root/run.sh run.sh
 
-COPY ibc_config.ini ibc/config.ini
+COPY ibc_config_prod.ini ibc/config.ini
 
 ENV DISPLAY :0
 ENV TRADING_MODE paper
