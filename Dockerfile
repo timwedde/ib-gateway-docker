@@ -1,5 +1,5 @@
 # Builder
-FROM ubuntu:latest AS builder
+FROM debian:buster-slim AS builder
 
 RUN apt-get update
 RUN apt-get install -y unzip wget curl
@@ -16,7 +16,7 @@ RUN chmod a+x /opt/ibc/*.sh /opt/ibc/*/*.sh
 COPY run.sh run.sh
 
 # Application
-FROM ubuntu:latest
+FROM debian:buster-slim
 
 RUN apt-get update
 RUN apt-get install -y x11vnc xvfb socat
@@ -35,11 +35,7 @@ COPY --from=builder /root/run.sh run.sh
 COPY ibc_config_prod.ini ibc/config.ini
 
 ENV DISPLAY :0
-ENV TRADING_MODE paper
 ENV TWS_PORT 4002
 ENV VNC_PORT 5900
-
-EXPOSE $TWS_PORT
-EXPOSE $VNC_PORT
 
 CMD ./run.sh
